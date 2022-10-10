@@ -23,6 +23,11 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function mail()
+    {
+        return view('auth.register-mail');
+    }
+
     /**
      * Handle an incoming registration request.
      *

@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-      "./resources/**/*.blade.php",
-      "./resources/**/*.js",
-  ],
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+    ],
     darkMode: 'media',
     theme: {
         screens: {
@@ -49,5 +51,6 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/line-clamp'),
-    ],
+        require('@tailwindcss/forms')
+    ]
 }

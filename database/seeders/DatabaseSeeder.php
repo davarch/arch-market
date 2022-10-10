@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -23,7 +24,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Category::factory(10)->create();
-        Product::factory(10)->create();
+        Category::factory(10)
+            ->has(Product::factory(5)->forBrand())
+            ->create();
+
+        Brand::factory(10)
+            ->has(Product::factory(5)->forCategory())
+            ->create();
     }
 }

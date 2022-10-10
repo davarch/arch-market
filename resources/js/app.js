@@ -1,5 +1,5 @@
 import './bootstrap';
-import '../sass/tailwind.css'
+import '../css/app.css'
 import '../sass/main.sass'
 
 import.meta.glob([

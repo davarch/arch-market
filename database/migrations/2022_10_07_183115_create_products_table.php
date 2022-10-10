@@ -19,8 +19,15 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
+            $table->foreignId('brand_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
             $table->text('title');
             $table->text('description');
+            $table->float('price');
             $table->timestamps();
         });
     }

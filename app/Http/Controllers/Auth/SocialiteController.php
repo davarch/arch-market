@@ -35,6 +35,11 @@ class SocialiteController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
+    /**
+     * @param $user
+     * @param $provider
+     * @return User
+     */
     public function findOrCreateUser($user, $provider): User
     {
         $authUser = User::where('provider_id', $user->id)->first();

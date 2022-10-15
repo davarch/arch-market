@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6635c0498004744c0d9ef4a2e0f11c0",
+    "content-hash": "9534c866c8a5f3ddd2c1113982e14a04",
     "packages": [
         {
             "name": "brick/math",
@@ -7400,16 +7400,16 @@
         },
         {
             "name": "davarch/telegram-logger",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/davarch/telegram-logger.git",
-                "reference": "05dc6835f1d32ee3e71519f173db532b70c47952"
+                "reference": "c7bd254d64cf2c30a300347319f674cea8bd4177"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davarch/telegram-logger/zipball/05dc6835f1d32ee3e71519f173db532b70c47952",
-                "reference": "05dc6835f1d32ee3e71519f173db532b70c47952",
+                "url": "https://api.github.com/repos/davarch/telegram-logger/zipball/c7bd254d64cf2c30a300347319f674cea8bd4177",
+                "reference": "c7bd254d64cf2c30a300347319f674cea8bd4177",
                 "shasum": ""
             },
             "require": {
@@ -7419,12 +7419,11 @@
             "require-dev": {
                 "roave/security-advisories": "dev-latest"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Davarch\\TelegramLogger\\TelegramLoggerServiceProvider"
+                        "Davarch\\TelegramLogger\\ServiceProvider"
                     ]
                 }
             },
@@ -7451,9 +7450,9 @@
             ],
             "support": {
                 "issues": "https://github.com/davarch/telegram-logger/issues",
-                "source": "https://github.com/davarch/telegram-logger/tree/v.1.0.0"
+                "source": "https://github.com/davarch/telegram-logger/tree/v1.0.1"
             },
-            "time": "2022-10-15T04:47:52+00:00"
+            "time": "2022-10-15T05:40:07+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -12688,8 +12687,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "roave/security-advisories": 20,
-        "davarch/telegram-logger": 20
+        "roave/security-advisories": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

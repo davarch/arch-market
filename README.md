@@ -11,6 +11,8 @@ Online store project based on <a href="https://tz.cutcode.ru">tz.cutcode.ru</a>
 
 `php artisan key:generate`
 
+`php artisan shop:install`
+
 `sail up -d`
 
 `sail yarn && sail yarn build`

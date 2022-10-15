@@ -117,6 +117,12 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'telegram' => [
+            'driver' => 'custom',
+            'via' => Davarch\TelegramLogger\Logging\TelegramLoggerFactory::class,
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
     ],
 
 ];

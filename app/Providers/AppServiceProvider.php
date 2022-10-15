@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Kernel;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -31,9 +33,17 @@ class AppServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(! app()->isProduction());
 
         DB::whenQueryingForLongerThan(500, static function (Connection $connection) {
-            // Notify development team...
+            logger()?->channel('telegram')->debug($connection->query()->toSql());
         });
 
         Vite::macro('image', fn ($asset) => $this->asset("resources/images/{$asset}"));
+
+        app(Kernel::class)
+            ->whenRequestLifecycleIsLongerThan(
+                CarbonInterval::seconds(5),
+                function () {
+                    logger()?->channel('telegram')->debug(request()?->url());
+                }
+            );
     }
 }

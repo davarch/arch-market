@@ -9,8 +9,6 @@ Online store project based on <a href="https://tz.cutcode.ru">tz.cutcode.ru</a>
 
 `cp .env.example .env`
 
-`php artisan key:generate`
-
 `php artisan shop:install`
 
 `sail up -d`

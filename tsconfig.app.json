@@ -1,0 +1,21 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+      "env.d.ts",
+      "resources/scripts/**/*",
+      "resources/scripts/**/*.vue",
+      "resources/scripts/**/**/*.vue",
+  ],
+  "exclude": [
+      "resources/scripts/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ES2021"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./resources/scripts/*"],
+      "@~/*": ["./resources/*"],
+    }
+  }
+}

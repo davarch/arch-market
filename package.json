@@ -3,25 +3,50 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build-check": "run-p type-check build-only",
+        "preview": "vite preview --port 4173",
+        "test:unit": "vitest --environment jsdom",
+        "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "stan": "./vendor/bin/phpstan analyse",
         "pint": "./vendor/bin/pint",
         "pest": "./vendor/bin/pest"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
+        "@rushstack/eslint-patch": "^1.1.0",
         "@tailwindcss/forms": "^0.5.2",
+        "@types/alpinejs": "^3.7.0",
+        "@types/jsdom": "^16.2.14",
+        "@types/node": "^18.11.0",
+        "@vitejs/plugin-vue": "^3.0.1",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "@vue/eslint-config-typescript": "^11.0.0",
+        "@vue/test-utils": "^2.0.2",
+        "@vue/tsconfig": "^0.1.3",
+        "alpinejs": "^3.10.3",
         "autoprefixer": "^10.4.12",
         "axios": "^0.27",
-        "alpinejs": "^3.10.3",
+        "eslint": "8.22.0",
+        "eslint-plugin-vue": "^9.0.0",
+        "jsdom": "^20.0.0",
         "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
         "node-sass": "^7.0.3",
+        "npm-run-all": "^4.1.5",
         "postcss": "^8.4.17",
+        "prettier": "^2.5.1",
         "sass": "^1.55.0",
         "tailwindcss": "^3.1.8",
-        "vite": "^3.0.0"
+        "typescript": "~4.7.4",
+        "vite": "^3.0.0",
+        "vitest": "^0.18.1",
+        "vue-tsc": "^0.38.8"
     },
     "dependencies": {
-        "@tailwindcss/line-clamp": "^0.4.2"
+        "@tailwindcss/line-clamp": "^0.4.2",
+        "pinia": "^2.0.16",
+        "vue": "^3.2.37",
+        "vue-router": "^4.1.2"
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,20 +18,32 @@ return new class extends Migration
     {
         Schema::create('products', static function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
 
-            $table->foreignId('brand_id')
+            $table->foreignIdFor(Brand::class)
+                ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
-            $table->text('title');
-            $table->text('description');
-            $table->float('price');
+            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('thumbnail')->nullable();
+            $table->unsignedInteger('price')->default(0);
             $table->timestamps();
+        });
+
+        Schema::create('category_product', static function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignIdFor(Category::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignIdFor(Product::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 
@@ -39,6 +54,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        if (app()->isLocal()) {
+            Schema::dropIfExists('category_product');
+            Schema::dropIfExists('products');
+        }
     }
 };

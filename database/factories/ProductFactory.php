@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,9 +22,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->text(10),
-            'description' => fake()->text(),
-            'price' => fake()->randomFloat(2, 0, 1000),
+            'slug' => fake()->slug,
+            'title' => ucfirst(fake()->words(2, true)),
+            'thumbnail' => $this->faker->thumbnail('products'),
+            'price' => fake()->numberBetween(1000, 100000),
+            'brand_id' => Brand::query()->inRandomOrder()->value('id'),
         ];
     }
 }

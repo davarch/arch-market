@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function run(): void
     {
@@ -24,12 +27,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Category::factory(10)
-            ->has(Product::factory(5)->forBrand())
-            ->create();
+        Brand::factory(20)->create();
 
-        Brand::factory(10)
-            ->has(Product::factory(5)->forCategory())
+        Category::factory(10)
+            ->has(Product::factory(random_int(5, 15)))
             ->create();
     }
 }

@@ -12,7 +12,6 @@ use function Pest\Laravel\post;
 uses(RefreshDatabase::class);
 
 test('login screen can be rendered')->get('login')->assertStatus(200);
-test('login mail screen can be rendered')->get('login-mail')->assertStatus(200);
 
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();

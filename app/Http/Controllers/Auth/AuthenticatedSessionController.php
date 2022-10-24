@@ -22,16 +22,6 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Display the login mail view.
-     *
-     * @return View
-     */
-    public function mail(): View
-    {
-        return view('auth.login-mail');
-    }
-
-    /**
      * Handle an incoming authentication request.
      *
      * @param  LoginRequest  $request

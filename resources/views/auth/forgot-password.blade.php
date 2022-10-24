@@ -2,7 +2,7 @@
     <x-auth-card title="Восстановить пароль">
         <form class="space-y-3" method="post" action="{{ route('password.email') }}">
             @csrf
-            <x-text-input name="email" type="email" placeholder="E-mail" required/>
+            <x-text-input name="email" type="email" placeholder="E-mail" required :is-error="$errors->has('email')"/>
             <x-input-error :messages="$errors->get('email')"/>
             <x-primary-button>Отправить</x-primary-button>
         </form>

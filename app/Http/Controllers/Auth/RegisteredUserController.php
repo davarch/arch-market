@@ -26,16 +26,6 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Display the registration mail view.
-     *
-     * @return View
-     */
-    public function mail(): View
-    {
-        return view('auth.register-mail');
-    }
-
-    /**
      * Handle an incoming registration request.
      *
      * @param  Request  $request

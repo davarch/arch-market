@@ -1,6 +1,53 @@
 <x-guest-layout>
     <x-auth-card title="Регистрация">
-        <x-auth-preview :link="route('register-mail')"/>
+        <form class="space-y-3" method="POST" action="{{ route('register') }}">
+            @csrf
+
+            <x-text-input
+                name="name"
+                type="text"
+                placeholder="Имя и фамилия"
+                required
+                :is-error="$errors->has('name')"
+            />
+            <x-input-error :messages="$errors->get('name')"/>
+
+            <x-text-input
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                required
+                :is-error="$errors->has('email')"
+            />
+            <x-input-error :messages="$errors->get('email')"/>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <x-text-input
+                        name="password"
+                        type="password"
+                        placeholder="Пароль"
+                        required
+                        :is-error="$errors->has('password')"
+                    />
+                    <x-input-error :messages="$errors->get('password')"/>
+                </div>
+
+                <div>
+                    <x-text-input
+                        name="password_confirmation"
+                        type="password"
+                        placeholder="Повторно пароль"
+                        required
+                        :is-error="$errors->has('password_confirmation')"
+                    />
+                    <x-input-error :messages="$errors->get('password_confirmation')"/>
+                </div>
+            </div>
+
+            <x-primary-button>Зарегистрироваться</x-primary-button>
+            <x-github-button/>
+        </form>
 
         <div class="space-y-3 mt-5">
             <div class="text-xxs md:text-xs">Есть аккаунт?

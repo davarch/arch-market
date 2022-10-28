@@ -15,10 +15,16 @@ class Category extends Model
     protected $fillable = [
         'slug',
         'title',
+        'show_in_main',
     ];
 
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function scopeShowInMain($query)
+    {
+        return $query->where('show_in_main', true);
     }
 }

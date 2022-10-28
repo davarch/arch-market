@@ -20,6 +20,7 @@ class BrandFactory extends Factory
             'slug' => fake()->slug,
             'title' => ucfirst(fake()->words(1, true)),
             'thumbnail' => $this->faker->thumbnail('brands'),
+            'show_in_main' => fake()->boolean(70),
         ];
     }
 }

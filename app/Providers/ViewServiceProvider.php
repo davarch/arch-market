@@ -20,15 +20,15 @@ class ViewServiceProvider extends ServiceProvider
 
         // временно
         View::composer('components.categories.index', static function (\Illuminate\View\View $view) {
-            $view->with('categories', Category::query()->inRandomOrder()->limit(10)->get());
+            $view->with('categories', Category::showInMain()->limit(10)->get());
         });
 
         View::composer('components.products.index', static function (\Illuminate\View\View $view) {
-            $view->with('products', Product::query()->inRandomOrder()->limit(8)->get());
+            $view->with('products', Product::popular()->limit(8)->get());
         });
 
         View::composer('components.brands.index', static function (\Illuminate\View\View $view) {
-            $view->with('brands', Brand::query()->inRandomOrder()->limit(6)->get());
+            $view->with('brands', Brand::showInMain()->limit(6)->get());
         });
     }
 }

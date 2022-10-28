@@ -18,6 +18,7 @@ class Product extends Model
         'title',
         'thumbnail',
         'price',
+        'is_popular',
         'brand_id',
     ];
 
@@ -29,5 +30,10 @@ class Product extends Model
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function scopePopular($query)
+    {
+        return $query->where('is_popular', true);
     }
 }

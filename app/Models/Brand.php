@@ -16,10 +16,16 @@ class Brand extends Model
         'slug',
         'title',
         'thumbnail',
+        'show_in_main',
     ];
 
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function scopeShowInMain($query)
+    {
+        return $query->where('show_in_main', true);
     }
 }

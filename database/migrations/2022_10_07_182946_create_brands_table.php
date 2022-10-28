@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('thumbnail')->nullable();
+            $table->boolean('show_in_main');
             $table->timestamps();
         });
     }

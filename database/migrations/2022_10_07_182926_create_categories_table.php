@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title');
+            $table->boolean('show_in_main');
             $table->timestamps();
         });
     }

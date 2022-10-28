@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::controller(RegisteredUserController::class)->group(function () {
         Route::get('register', 'create')->name('register');
-        Route::post('register', 'store');
+        Route::post('register', 'store')->middleware('throttle:auth');
     });
 
     Route::controller(AuthenticatedSessionController::class)->group(function () {
         Route::get('login', 'create')->name('login');
-        Route::post('login', 'store');
+        Route::post('login', 'store')->middleware('throttle:auth');
     });
 
     Route::controller(PasswordResetLinkController::class)->group(function () {

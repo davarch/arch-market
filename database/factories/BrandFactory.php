@@ -18,7 +18,7 @@ class BrandFactory extends Factory
     {
         return [
             'slug' => fake()->slug,
-            'title' => fake()->company,
+            'title' => ucfirst(fake()->words(1, true)),
             'thumbnail' => $this->faker->thumbnail('brands'),
         ];
     }

@@ -8,6 +8,7 @@
                 type="text"
                 placeholder="Имя и фамилия"
                 required
+                value="{{ old('name') }}"
                 :is-error="$errors->has('name')"
             />
             <x-input-error :messages="$errors->get('name')"/>
@@ -17,6 +18,7 @@
                 type="email"
                 placeholder="E-mail"
                 required
+                value="{{ old('email') }}"
                 :is-error="$errors->has('email')"
             />
             <x-input-error :messages="$errors->get('email')"/>

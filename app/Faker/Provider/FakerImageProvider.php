@@ -14,12 +14,12 @@ class FakerImageProvider extends Base
             Storage::disk('public')->makeDirectory($directoryPath);
         }
 
-        $fileName = fake()->file(
+        $fileName = $this->generator->file(
             base_path("tests/Fixtures$directoryPath"),
             storage_path("app/public$directoryPath"),
             false
         );
 
-        return "/storage/public/images/$fileName";
+        return "storage$directoryPath/$fileName";
     }
 }

@@ -2,34 +2,25 @@
 
 namespace App\Providers;
 
-use App\Faker\Provider\FakerImageProvider;
 use App\Http\Kernel;
 use Carbon\CarbonInterval;
-use Faker\Factory;
-use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
-use Vite;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        $this->app->singleton(Generator::class, function () {
-            $faker = Factory::create();
-            $faker->addProvider(new FakerImageProvider($faker));
-
-            return $faker;
-//            return tap(Factory::create(), function ($faker) {
-//                $faker->addProvider(new FakerImageProvider($faker));
-//            });
-        });
-    }
-
     public function boot(): void
     {
-        Vite::macro('image', fn ($asset) => $this->asset("resources/images/{$asset}"));
+        Password::defaults(static function () {
+            return Password::min(12)
+                ->uncompromised()
+                ->mixedCase()
+                ->symbols()
+                ->numbers()
+                ->letters();
+        });
 
         Model::shouldBeStrict(! app()->isProduction());
 

@@ -14,11 +14,13 @@ uses(RefreshDatabase::class);
 test('login screen can be rendered')->get('login')->assertStatus(200);
 
 test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'password' => \Hash::make('pass%worD$123'),
+    ]);
 
     $response = post('/login', [
         'email' => $user->email,
-        'password' => 'password',
+        'password' => 'pass%worD$123',
     ]);
 
     assertAuthenticated();
@@ -30,7 +32,7 @@ test('users can not authenticate with invalid password', function () {
 
     post('/login', [
         'email' => $user->email,
-        'password' => 'wrong-password',
+        'password' => 'pass%worD$123',
     ]);
 
     assertGuest();

@@ -13,8 +13,8 @@ test('new users can register', function () {
     $response = post('/register', [
         'name' => 'Test User',
         'email' => 'test@cutcode.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
+        'password' => 'pass%worD$123',
+        'password_confirmation' => 'pass%worD$123',
     ]);
 
     assertAuthenticated();

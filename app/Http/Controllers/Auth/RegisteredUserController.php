@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use Domain\Auth\Contracts\RegisterUserContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -28,28 +25,13 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  Request  $request
+     * @param  RegisterRequest  $request
+     * @param  RegisterUserContract  $action
      * @return RedirectResponse
-     *
-     * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(RegisterRequest $request, RegisterUserContract $action): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-        ]);
-
-        event(new Registered($user));
-
-        auth()->login($user);
+        $action($request->validated());
 
         return redirect(RouteServiceProvider::HOME);
     }

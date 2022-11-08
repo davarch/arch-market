@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Worksome\RequestFactories\Concerns\HasFactory;
 
 class LoginRequest extends FormRequest
 {
+    use HasFactory;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -18,7 +21,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->guest();
     }
 
     /**

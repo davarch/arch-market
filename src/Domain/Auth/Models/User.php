@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Auth\Models;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -43,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 }

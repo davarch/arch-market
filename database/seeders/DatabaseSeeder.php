@@ -6,7 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Product;
-use App\Models\User;
+use Domain\Auth\Models\User;
 use Exception;
 use Illuminate\Database\Seeder;
 

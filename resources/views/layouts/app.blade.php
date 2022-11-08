@@ -16,6 +16,7 @@
         @vite('resources/js/app.js')
     </head>
     <body x-data="{ 'showTaskUploadModal': false, 'showTaskEditModal': false }" x-cloak>
+        <x-flash-message/>
         <x-header/>
 
         {{ $slot }}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Faker\Provider;
+namespace Support\Testing;
 
 use Faker\Provider\Base;
 use Storage;

@@ -18,6 +18,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
         "barryvdh/laravel-ide-helper": "^2.12",
+        "davarch/telegram-logger": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.14",
         "laravel/pint": "^1.0",
@@ -31,16 +32,19 @@
         "phpunit/phpunit": "^9.5.10",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^1.0",
-        "davarch/telegram-logger": "^1.0"
+        "worksome/request-factories": "^2.5"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Domain\\": "src/Domain/",
+            "Services\\": "src/Services/",
+            "Support\\": "src/Support/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Support/helpers.php"
+            "src/Support/helpers.php"
         ]
     },
     "autoload-dev": {

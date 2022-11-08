@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
+use Domain\Auth\Models\User;
 use Exception;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,11 @@ use function Pest\Laravel\post;
 
 uses(RefreshDatabase::class);
 
-test('reset password link screen can be rendered')->get('/forgot-password')->assertStatus(200);
+test('reset password link screen can be rendered')
+    ->get('/forgot-password')
+    ->assertOk()
+    ->assertSee('Восстановить пароль')
+    ->assertViewIs('auth.forgot-password');
 
 test('reset password link can be requested', /** @throws Exception */ function () {
     Notification::fake();

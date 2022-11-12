@@ -12,13 +12,13 @@ use function Pest\Laravel\post;
 
 uses(RefreshDatabase::class);
 
-test('reset password link screen can be rendered')
+it('reset password link screen can be rendered')
     ->get('/forgot-password')
     ->assertOk()
     ->assertSee('Восстановить пароль')
     ->assertViewIs('auth.forgot-password');
 
-test('reset password link can be requested', /** @throws Exception */ function () {
+it('reset password link can be requested', /** @throws Exception */ function () {
     Notification::fake();
 
     $user = User::factory()->create();
@@ -28,7 +28,7 @@ test('reset password link can be requested', /** @throws Exception */ function (
     Notification::assertSentTo($user, ResetPassword::class);
 });
 
-test('reset password screen can be rendered', /** @throws Exception */ function () {
+it('reset password screen can be rendered', /** @throws Exception */ function () {
     Notification::fake();
 
     $user = User::factory()->create();
@@ -42,7 +42,7 @@ test('reset password screen can be rendered', /** @throws Exception */ function 
     });
 });
 
-test('password can be reset with valid token', /** @throws Exception */ function () {
+it('password can be reset with valid token', /** @throws Exception */ function () {
     Notification::fake();
 
     $user = User::factory()->create();

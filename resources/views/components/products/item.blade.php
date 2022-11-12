@@ -1,7 +1,7 @@
 
 <div class="product-card flex flex-col rounded-3xl bg-card">
     <a href="{{ $slug }}" class="product-card-photo overflow-hidden h-[320px] rounded-3xl">
-        <img src="{{ asset($thumbnail) }}" class="object-cover w-full h-full" alt="{{ $title }}">
+        <img src="{{ $thumbnail }}" class="object-cover w-full h-full" alt="{{ $title }}">
     </a>
     <div class="grow flex flex-col py-8 px-6">
         <h3 class="text-sm lg:text-md font-black"><a href="{{ $slug }}" class="inline-block text-white hover:text-pink">{{ $title }}</a></h3>

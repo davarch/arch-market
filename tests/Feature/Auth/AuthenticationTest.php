@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Domain\Auth\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\actingAs;
@@ -13,13 +12,13 @@ use function Pest\Laravel\post;
 
 uses(RefreshDatabase::class);
 
-test('login screen can be rendered')
+it('login screen can be rendered')
     ->get('login')
     ->assertOk()
     ->assertSee('Вход в аккаунт')
     ->assertViewIs('auth.login');
 
-test('users can authenticate using the login screen', function () {
+it('users can authenticate using the login screen', function () {
     $password = 'pass%worD$123';
 
     $user = User::factory()->create([
@@ -35,10 +34,10 @@ test('users can authenticate using the login screen', function () {
     $response->assertValid();
 
     assertAuthenticatedAs($user);
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(route('home'));
 });
 
-test('users can not authenticate with invalid password', function () {
+it('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
     post('/login', LoginRequest::factory()->create([
@@ -48,7 +47,7 @@ test('users can not authenticate with invalid password', function () {
     assertGuest();
 });
 
-test('users can be logout', function () {
+it('users can be logout', function () {
     $user = User::factory()->create();
 
     actingAs($user)->post('/logout');

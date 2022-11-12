@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Providers\RouteServiceProvider;
 use Domain\Auth\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\assertDatabaseHas;
@@ -12,42 +10,64 @@ use function Pest\Laravel\post;
 
 uses(RefreshDatabase::class);
 
-test('registration screen can be rendered')
+it('registration screen can be rendered')
     ->get('/register')
     ->assertOk()
     ->assertSee('Регистрация')
     ->assertViewIs('auth.register');
 
-test('new users can register', function () {
-    Event::fake();
-    Notification::fake();
+it('validation success', function () {
+    post(
+        '/register',
+        RegisterRequest::factory()->create()
+    )->assertValid();
+});
 
+it('should fail validation on password confirm', function () {
+    post(
+        '/register',
+        RegisterRequest::factory()->create([
+            'password' => '123',
+            'password_confirmation' => '1234',
+        ])
+    )->assertInvalid(['password']);
+});
+
+it('user created success', function () {
     $request = RegisterRequest::factory()->create();
 
     assertDatabaseMissing('users', [
         'email' => $request['email'],
     ]);
 
-    $response = post('/register', $request);
+    post('/register', $request);
 
-    $response->assertValid();
+    assertDatabaseHas('users', [
+        'email' => $request['email'],
+    ]);
+});
+
+it('should fail validation on unique email', function () {
+    $request = RegisterRequest::factory()->create();
+
+    User::factory()->create([
+        'email' => $request['email'],
+    ]);
 
     assertDatabaseHas('users', [
         'email' => $request['email'],
     ]);
 
+    post('/register', $request)->assertInvalid(['email']);
+});
+
+it('user authenticated after and redirected', function () {
+    $request = RegisterRequest::factory()->create();
+
+    post('/register', $request)->assertRedirect(route('home'));
+
+    /** @var User $user */
     $user = User::query()->where('email', $request['email'])->first();
 
-    Event::assertDispatched(Registered::class);
-    // Event::assertListening(Registered::class, SendEmailNewUserListener::class);
-
-//    $event = new Registered($user);
-//    $listener = new SendEmailNewUserListener();
-//    $listener->handle($event);
-
-    // Notification::assertSentTo($user, NewUserNotification::class);
-
     assertAuthenticatedAs($user);
-
-    $response->assertRedirect(RouteServiceProvider::HOME);
 });

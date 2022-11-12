@@ -22,5 +22,6 @@
         {{ $slot }}
 
         <x-footer/>
+        <x-mobile-menu/>
     </body>
 </html>

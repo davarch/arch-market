@@ -23,8 +23,11 @@
                     <button @click="dropdownProfile = ! dropdownProfile"
                             class="flex items-center text-white hover:text-pink transition">
                         <span class="sr-only">Профиль</span>
-                        <img src="{{ Vite::image('avatar.jpg') }}" class="shrink-0 w-7 md:w-9 h-7 md:h-9 rounded-full"
-                             alt="Данил Шуцкий">
+                        <img
+                            src="{{ auth()->user()->avatar }}"
+                            class="shrink-0 w-7 md:w-9 h-7 md:h-9 rounded-full"
+                            alt="{{ auth()->user()->name }}"
+                        >
                         <span class="hidden md:block ml-2 font-medium">{{ auth()->user()->name }}</span>
                         <svg class="shrink-0 w-3 h-3 ml-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                              viewBox="0 0 30 16">
@@ -47,8 +50,11 @@
                     >
                         <h5 class="text-body text-xs">Мой профиль</h5>
                         <div class="flex items-center mt-3">
-                            <img src="{{ Vite::image('avatar.jpg') }}" class="w-11 h-11 rounded-full"
-                                 alt="Данил Шуцкий">
+                            <img
+                                src="{{ auth()->user()->avatar }}"
+                                class="w-11 h-11 rounded-full"
+                                alt="{{ auth()->user()->name }}"
+                            >
                             <span class="ml-3 text-xs md:text-sm font-bold">{{ auth()->user()->name }}</span>
                         </div>
                         <div class="mt-4">

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->boolean('show_in_main');
+            $table->boolean('is_popular')->default(false);
+            $table->integer('sorting')->default(999);
             $table->timestamps();
         });
     }

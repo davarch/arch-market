@@ -20,7 +20,8 @@ class BrandFactory extends Factory
             'slug' => fake()->slug,
             'title' => ucfirst(fake()->words(1, true)),
             'thumbnail' => $this->faker->thumbnail('brands'),
-            'show_in_main' => fake()->boolean(70),
+            'is_popular' => fake()->boolean(70),
+            'sorting' => $this->faker->numberBetween(1, 999),
         ];
     }
 }

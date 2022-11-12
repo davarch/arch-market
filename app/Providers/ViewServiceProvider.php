@@ -17,10 +17,11 @@ class ViewServiceProvider extends ServiceProvider
         Vite::macro('image', fn ($asset) => $this->asset("resources/images/{$asset}"));
 
         View::composer('components.menu', MenuComposer::class);
+        View::composer('components.mobile-menu', MenuComposer::class);
 
         // временно
         View::composer('components.categories.index', static function (\Illuminate\View\View $view) {
-            $view->with('categories', Category::showInMain()->limit(10)->get());
+            $view->with('categories', Category::popular()->limit(10)->get());
         });
 
         View::composer('components.products.index', static function (\Illuminate\View\View $view) {
@@ -28,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer('components.brands.index', static function (\Illuminate\View\View $view) {
-            $view->with('brands', Brand::showInMain()->limit(6)->get());
+            $view->with('brands', Brand::popular()->limit(6)->get());
         });
     }
 }

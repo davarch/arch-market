@@ -2,7 +2,9 @@
 
 namespace Tests;
 
+use Http;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Notification;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -14,6 +16,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        \Http::preventStrayRequests();
+        Notification::fake();
+        Http::preventStrayRequests();
     }
 }

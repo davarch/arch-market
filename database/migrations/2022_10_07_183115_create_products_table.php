@@ -28,8 +28,10 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('thumbnail')->nullable();
-            $table->boolean('is_popular');
             $table->unsignedInteger('price')->default(0);
+            $table->boolean('is_popular')->default(false);
+            $table->integer('sorting')->default(999);
+
             $table->timestamps();
         });
 

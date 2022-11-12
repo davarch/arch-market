@@ -8,8 +8,6 @@ use Domain\Auth\Models\User;
 use DomainException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Socialite;
@@ -51,22 +49,22 @@ class SocialiteController extends Controller
     /**
      * @param $user
      * @param $provider
-     * @return Builder|Model|object
+     * @return Authenticatable
      */
     public function findOrCreateUser($user, $provider): Authenticatable
     {
-        $authUser = User::query()->where('provider_id', $user->id)->first();
+        $authUser = User::query()->where('provider_id', $user->getId())->first();
 
         if ($authUser) {
             return $authUser;
         }
 
         return User::query()->create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => bcrypt($user->token),
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'password' => bcrypt($user->getToken()),
             'provider' => $provider,
-            'provider_id' => $user->id,
+            'provider_id' => $user->getId(),
         ]);
     }
 }

@@ -19,7 +19,8 @@ class CategoryFactory extends Factory
         return [
             'slug' => fake()->slug,
             'title' => ucfirst(fake()->words(2, true)),
-            'show_in_main' => fake()->boolean(70),
+            'is_popular' => fake()->boolean(70),
+            'sorting' => $this->faker->numberBetween(1, 999),
         ];
     }
 }

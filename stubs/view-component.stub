@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Closure;
+
+final class {{ class }} extends Component
+{
+    public function __construct(): void
+    {
+        //
+    }
+
+    public function render(): View|Closure|string
+    {
+        return {{ view }};
+    }
+}

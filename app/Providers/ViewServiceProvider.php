@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
 use App\View\Composers\MenuComposer;
+use Domain\Catalog\Models\Brand;
+use Domain\Catalog\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use View;
 use Vite;
@@ -19,7 +19,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('components.menu', MenuComposer::class);
         View::composer('components.mobile-menu', MenuComposer::class);
 
-        // временно
         View::composer('components.categories.index', static function (\Illuminate\View\View $view) {
             $view->with('categories', Category::popular()->limit(10)->get());
         });

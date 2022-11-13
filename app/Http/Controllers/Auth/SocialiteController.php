@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Domain\Auth\Models\User;
 use DomainException;
+use Hash;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +43,7 @@ class SocialiteController extends Controller
 
         auth()->login($authUser, true);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('home'));
     }
 
     /**
@@ -62,7 +62,7 @@ class SocialiteController extends Controller
         return User::query()->create([
             'name' => $user->getName(),
             'email' => $user->getEmail(),
-            'password' => bcrypt($user->getToken()),
+            'password' => Hash::make(str()->random(20)),
             'provider' => $provider,
             'provider_id' => $user->getId(),
         ]);

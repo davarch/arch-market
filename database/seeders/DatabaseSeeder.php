@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Product;
 use Domain\Auth\Models\User;
+use Domain\Catalog\Models\Brand;
+use Domain\Catalog\Models\Category;
 use Exception;
 use Illuminate\Database\Seeder;
 

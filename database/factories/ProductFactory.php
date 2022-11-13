@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Brand;
 use App\Models\Product;
+use Domain\Catalog\Models\Brand;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ProductFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
      * @return array<string, mixed>
      *
      * @throws Exception
@@ -22,11 +20,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'slug' => fake()->slug,
-            'title' => ucfirst(fake()->words(2, true)),
+            'slug' => $this->faker->slug,
+            'title' => ucfirst($this->faker->words(2, true)),
             'thumbnail' => $this->faker->thumbnail('products'),
-            'price' => fake()->numberBetween(1000, 100000),
-            'is_popular' => fake()->boolean(20),
+            'price' => $this->faker->numberBetween(1000, 1000000),
+            'is_popular' => $this->faker->boolean(20),
             'sorting' => $this->faker->numberBetween(1, 999),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
         ];

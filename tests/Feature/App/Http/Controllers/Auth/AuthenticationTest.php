@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature\Auth;
-
 use App\Http\Requests\Auth\LoginRequest;
 use Domain\Auth\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

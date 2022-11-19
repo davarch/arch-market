@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menu;
 use App\Models\Product;
 use Domain\Auth\Models\User;
 use Domain\Catalog\Models\Brand;
@@ -33,20 +32,5 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)
             ->has(Product::factory(random_int(5, 15)))
             ->create();
-
-        Menu::factory()->create([
-            'name' => 'Главная',
-            'url' => '/',
-        ]);
-
-        Menu::factory()->create([
-            'name' => 'Каталог товаров',
-            'url' => '/catalogue',
-        ]);
-
-        Menu::factory()->create([
-            'name' => 'Корзина',
-            'url' => '/cart',
-        ]);
     }
 }

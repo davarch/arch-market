@@ -31,6 +31,9 @@ return new class extends Migration
             $table->unsignedInteger('price')->default(0);
             $table->boolean('is_popular')->default(false);
             $table->integer('sorting')->default(999);
+            $table->text('text')->nullable();
+
+            $table->fullText(['title', 'text']);
 
             $table->timestamps();
         });

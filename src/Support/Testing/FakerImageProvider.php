@@ -9,17 +9,18 @@ class FakerImageProvider extends Base
 {
     public function thumbnail(string $directory): string
     {
-        $directoryPath = "/images/$directory";
-        if (! Storage::disk('public')->directoryExists($directoryPath)) {
-            Storage::disk('public')->makeDirectory($directoryPath);
+        $storage = Storage::disk('images');
+
+        if (! $storage->exists($directory)) {
+            $storage->makeDirectory($directory);
         }
 
         $fileName = $this->generator->file(
-            base_path("tests/Fixtures$directoryPath"),
-            storage_path("app/public$directoryPath"),
+            base_path("tests/Fixtures/images/$directory"),
+            $storage->path($directory),
             false
         );
 
-        return "storage$directoryPath/$fileName";
+        return "/storage/images/$directory/$fileName";
     }
 }

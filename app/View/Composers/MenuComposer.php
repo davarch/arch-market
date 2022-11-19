@@ -2,14 +2,18 @@
 
 namespace App\View\Composers;
 
-use App\Models\Menu;
-use Cache;
+use App\Menu\Menu;
+use App\Menu\MenuItem;
 use Illuminate\View\View;
 
 class MenuComposer
 {
     public function compose(View $view): void
     {
-        $view->with('menu', Cache::remember('menu', 60 * 60 * 24, static fn () => Menu::all()));
+        $menu = Menu::make()
+            ->add(MenuItem::make(route('home'), 'Главная'))
+            ->add(MenuItem::make(route('catalog'), 'Каталог'));
+
+        $view->with('menu', $menu);
     }
 }

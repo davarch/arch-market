@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Cache;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Pipeline\Pipeline;
 use Support\Casts\PriceCast;
 use Support\Concerns\Models\HasSlug;
 use Support\Concerns\Models\HasThumbnail;
@@ -48,10 +51,45 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function scopePopular(Builder $query): Builder
+    public function scopePopular(Builder $query): array|Collection
     {
-        return $query
-            ->where('is_popular', true)
-            ->orderBy('sorting');
+        return Cache::rememberForever('popular_products',
+            static fn () => $query
+                ->where('is_popular', true)
+                ->orderBy('sorting')
+                ->limit(8)
+                ->get()
+        );
+    }
+
+    public function scopeFiltered(Builder $query)
+    {
+        return app(Pipeline::class)
+            ->send($query)
+            ->through(filters())
+            ->thenReturn();
+//        $query
+//            ->when(request('filters.brands'), function (Builder $q) {
+//                $q->whereIn('brand_id', request('filters.brands'));
+//            })
+//            ->when(request('filters.price'), function (Builder $q) {
+//                $q->whereBetween('price', [
+//                    request('filters.price.from', 0) * 100,
+//                    request('filters.price.to', 100000) * 100,
+//                ]);
+//            });
+    }
+
+    public function scopeSorted(Builder $query)
+    {
+        $query->when(request('sort'), function (Builder $q) {
+            $column = request()?->str('sort');
+
+            if ($column->contains(['price', 'title'])) {
+                $direction = $column->contains('-') ? 'DESC' : 'ASC';
+
+                $q->orderBy((string) $column->remove('-'), $direction);
+            }
+        });
     }
 }

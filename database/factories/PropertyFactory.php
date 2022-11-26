@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Property;
+use Domain\Product\Models\Property;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 final class PropertyFactory extends Factory
 {
+    protected $model = Property::class;
+
     public function definition(): array
     {
         return [

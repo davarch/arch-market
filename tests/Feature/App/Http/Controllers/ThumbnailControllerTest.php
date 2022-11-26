@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Models\Product;
+use Domain\Product\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use function Pest\Laravel\get;
 
 uses(RefreshDatabase::class);
 
-test('generated success', function () {
+it('generated success', function () {
     Storage::fake('images');
 
     $size = '500x500';

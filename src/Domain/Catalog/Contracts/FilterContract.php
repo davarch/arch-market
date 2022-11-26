@@ -15,7 +15,7 @@ interface FilterContract extends Stringable
      * @param  Closure  $next
      * @return void
      */
-    public function __invoke(Builder $query, Closure $next): void;
+    public function __invoke(Builder $query, Closure $next): mixed;
 
     /**
      * @return string

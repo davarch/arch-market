@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Filters\BrandFilter;
 use App\Filters\PriceFilter;
 use Domain\Catalog\Filters\FilterManager;
+use Domain\Catalog\Sorters\Sorter;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +25,12 @@ class CatalogServiceProvider extends ServiceProvider
             new PriceFilter(),
             new BrandFilter(),
         ]);
+
+        $this->app->bind(Sorter::class, function () {
+            return new Sorter([
+                'title',
+                'price',
+            ]);
+        });
     }
 }

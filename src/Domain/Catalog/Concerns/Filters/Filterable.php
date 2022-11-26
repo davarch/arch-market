@@ -9,11 +9,9 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 trait Filterable
 {
-    public function __invoke(Builder $query, Closure $next): void
+    public function __invoke(Builder $query, Closure $next): mixed
     {
-        $this->apply($query);
-
-        $next($query);
+        return $next($this->apply($query));
     }
 
     public function requestValue(string $index = null, mixed $default = null): mixed

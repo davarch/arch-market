@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\ViewModels\HomeViewModel;
+use App\View\ViewModels\HomeViewModel;
 
 final class HomeController extends Controller
 {

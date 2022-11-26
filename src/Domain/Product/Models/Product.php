@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Product\Models;
 
-use Cache;
+use App\Jobs\ProductJsonProperties;
+use Database\Factories\ProductFactory;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
-use Illuminate\Database\Eloquent\Builder;
+use Domain\Product\Collections\ProductCollection;
+use Domain\Product\QueryBuilders\ProductQueryBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Pipeline\Pipeline;
 use Support\Casts\PriceCast;
 use Support\Concerns\Models\HasSlug;
 use Support\Concerns\Models\HasThumbnail;
@@ -33,11 +34,23 @@ class Product extends Model
         'is_popular',
         'sorting',
         'brand_id',
+        'json_properties',
     ];
 
     protected $casts = [
         'price' => PriceCast::class,
+        'json_properties' => 'array',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(static function (Product $product) {
+            ProductJsonProperties::dispatch($product)
+            ->delay(now()->addSeconds(10));
+        });
+    }
 
     public function thumbnailDir(): string
     {
@@ -64,35 +77,18 @@ class Product extends Model
         return $this->belongsToMany(OptionValue::class);
     }
 
-    public function scopePopular(Builder $query): array|Collection
+    public function newCollection(array $models = []): ProductCollection
     {
-        return Cache::rememberForever('popular_products',
-            static fn () => $query
-                ->where('is_popular', true)
-                ->orderBy('sorting')
-                ->limit(8)
-                ->get()
-        );
+        return new ProductCollection($models);
     }
 
-    public function scopeFiltered(Builder $query)
+    public function newEloquentBuilder($query): ProductQueryBuilder
     {
-        return app(Pipeline::class)
-            ->send($query)
-            ->through(filters())
-            ->thenReturn();
+        return new ProductQueryBuilder($query);
     }
 
-    public function scopeSorted(Builder $query)
+    protected static function newFactory(): ProductFactory
     {
-        $query->when(request('sort'), function (Builder $q) {
-            $column = request()?->str('sort');
-
-            if ($column->contains(['price', 'title'])) {
-                $direction = $column->contains('-') ? 'DESC' : 'ASC';
-
-                $q->orderBy((string) $column->remove('-'), $direction);
-            }
-        });
+        return ProductFactory::new();
     }
 }

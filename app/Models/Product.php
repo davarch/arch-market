@@ -16,6 +16,9 @@ use Support\Casts\PriceCast;
 use Support\Concerns\Models\HasSlug;
 use Support\Concerns\Models\HasThumbnail;
 
+/**
+ * @method Collection popular()
+ */
 class Product extends Model
 {
     use HasFactory;
@@ -51,6 +54,16 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function properties(): BelongsToMany
+    {
+        return $this->belongsToMany(Property::class)->withPivot('value');
+    }
+
+    public function optionValues(): BelongsToMany
+    {
+        return $this->belongsToMany(OptionValue::class);
+    }
+
     public function scopePopular(Builder $query): array|Collection
     {
         return Cache::rememberForever('popular_products',
@@ -68,16 +81,6 @@ class Product extends Model
             ->send($query)
             ->through(filters())
             ->thenReturn();
-//        $query
-//            ->when(request('filters.brands'), function (Builder $q) {
-//                $q->whereIn('brand_id', request('filters.brands'));
-//            })
-//            ->when(request('filters.price'), function (Builder $q) {
-//                $q->whereBetween('price', [
-//                    request('filters.price.from', 0) * 100,
-//                    request('filters.price.to', 100000) * 100,
-//                ]);
-//            });
     }
 
     public function scopeSorted(Builder $query)

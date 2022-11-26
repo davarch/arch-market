@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use Domain\Catalog\Models\Brand;
-use Domain\Catalog\Models\Category;
-use Illuminate\Contracts\View\View;
+use App\ViewModels\HomeViewModel;
 
 final class HomeController extends Controller
 {
     /**
-     * @return View
+     * @return HomeViewModel
      */
-    public function __invoke(): View
+    public function __invoke(): HomeViewModel
     {
-        $categories = Category::popular();
-        $products = Product::popular();
-        $brands = Brand::popular();
-
-        return view('home', compact('categories', 'brands', 'products'));
+        return (new HomeViewModel())->view('home');
     }
 }

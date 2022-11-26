@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Option;
+use App\Models\OptionValue;
 use App\Models\Product;
+use App\Models\Property;
 use Domain\Auth\Models\User;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
@@ -27,10 +30,22 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        $properties = Property::factory(10)->create();
+
+        Option::factory(2)->create();
+
+        $optionValue = OptionValue::factory(10)->create();
+
         Brand::factory(20)->create();
 
         Category::factory(10)
-            ->has(Product::factory(random_int(5, 15)))
+            ->has(
+                Product::factory(random_int(5, 15))
+                    ->hasAttached($optionValue)
+                    ->hasAttached($properties, function () {
+                        return ['value' => ucfirst(fake()->word())];
+                    })
+            )
             ->create();
     }
 }

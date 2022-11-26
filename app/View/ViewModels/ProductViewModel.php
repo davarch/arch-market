@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\ViewModels;
 
 use Domain\Product\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\ViewModels\ViewModel;
 
-class ProductViewModel extends ViewModel
+final class ProductViewModel extends ViewModel
 {
     public function __construct(public Product $product)
     {

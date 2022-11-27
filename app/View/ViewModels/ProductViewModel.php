@@ -24,7 +24,7 @@ final class ProductViewModel extends ViewModel
 
     public function also(): Collection|array
     {
-        return  Product::query()
+        return Product::query()
             ->where(function ($query) {
                 $query->whereIn('id', session('also', []))
                     ->where('id', '!=', $this->product->id);

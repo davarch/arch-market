@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Filters\BrandFilter;
+use App\Filters\OptionFilter;
 use App\Filters\PriceFilter;
 use Domain\Catalog\Filters\FilterManager;
 use Domain\Catalog\Sorters\Sorter;
@@ -24,6 +25,7 @@ class CatalogServiceProvider extends ServiceProvider
         $this->app->make(FilterManager::class)->registerFilters([
             new PriceFilter(),
             new BrandFilter(),
+            new OptionFilter(),
         ]);
 
         $this->app->bind(Sorter::class, function () {

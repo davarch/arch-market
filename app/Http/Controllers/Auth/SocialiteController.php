@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Socialite;
+use Support\SessionRegenerator;
 use Throwable;
 
 class SocialiteController extends Controller
@@ -41,7 +42,7 @@ class SocialiteController extends Controller
         $user = Socialite::driver($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
 
-        auth()->login($authUser, true);
+        SessionRegenerator::run(static fn () => auth()->login($authUser, true));
 
         return redirect(route('home'));
     }

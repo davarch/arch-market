@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Support\SessionRegenerator;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,7 +31,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        SessionRegenerator::run();
 
         return redirect()->intended(route('home'));
     }
@@ -38,16 +39,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(): RedirectResponse
     {
-        auth()->guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        SessionRegenerator::run(static fn () => auth()->guard('web')->logout());
 
         return redirect('/');
     }

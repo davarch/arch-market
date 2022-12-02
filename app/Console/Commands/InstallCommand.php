@@ -16,7 +16,7 @@ class InstallCommand extends Command
         $this->call('key:generate');
         $this->call('storage:link');
         $this->call('migrate', [
-            '--seed' => true
+            '--seed' => true,
         ]);
         $this->call('telegram-logger:publish');
 

@@ -7,9 +7,8 @@ use Domain\Auth\Contracts\RegisterUserContract;
 use Domain\Auth\DTO\RegisterUserDTO;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-it('success user created', /** @throws UnknownProperties */ function () {
+it('success user created', function () {
     $request = RegisterRequest::factory()->create();
 
     assertDatabaseMissing('users', [
@@ -18,7 +17,7 @@ it('success user created', /** @throws UnknownProperties */ function () {
 
     $action = app(RegisterUserContract::class);
 
-    $action(new RegisterUserDTO($request));
+    $action(RegisterUserDTO::from($request));
 
     assertDatabaseHas('users', [
         'email' => $request['email'],

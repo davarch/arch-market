@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'is_popular' => $this->faker->boolean(20),
             'sorting' => $this->faker->numberBetween(1, 999),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
+            'text' => $this->faker->text(),
         ];
     }
 }

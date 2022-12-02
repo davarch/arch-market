@@ -18,7 +18,7 @@ final class {{ class }}
     use InteractsWithSockets;
     use SerializesModels;
 
-    public function __construct(): void
+    public function __construct()
     {
         //
     }

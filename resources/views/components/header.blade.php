@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 @endauth
-                <a href="cart.html" class="flex items-center gap-3 text-pink hover:text-white">
+                <a href="{{ route('cart.index') }}" class="flex items-center gap-3 text-pink hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 md:w-7 w-6 md:h-7" fill="currentColor"
                          viewBox="0 0 52 52">
                         <path
@@ -98,8 +98,8 @@
                     </svg>
 
                     <div class="hidden sm:flex flex-col gap-2">
-                        <span class="text-body text-xxs leading-none">3 шт.</span>
-                        <span class="text-white text-xxs 2xl:text-xs font-bold !leading-none">57 900 ₽</span>
+                        <span class="text-body text-xxs leading-none">{{ cart()->count() }} шт.</span>
+                        <span class="text-white text-xxs 2xl:text-xs font-bold !leading-none">{{ cart()->amount() }}</span>
                     </div>
                 </a>
 

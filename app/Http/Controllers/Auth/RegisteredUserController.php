@@ -9,7 +9,6 @@ use Domain\Auth\DTO\RegisterUserDTO;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class RegisteredUserController extends Controller
 {
@@ -29,13 +28,11 @@ class RegisteredUserController extends Controller
      * @param  RegisterRequest  $request
      * @param  RegisterUserContract  $action
      * @return RedirectResponse
-     *
-     * @throws UnknownProperties
      */
     public function store(RegisterRequest $request, RegisterUserContract $action): RedirectResponse
     {
         auth()->login(
-            $action(new RegisterUserDTO($request->validated()))
+            $action(RegisterUserDTO::from($request->validated()))
         );
 
         return redirect(route('home'));

@@ -8,14 +8,14 @@ use Illuminate\Contracts\Validation\{{ ruleType }};
 
 final class {{ class }} implements {{ ruleType }}
 {
-    public function __construct(): void
+    public function __construct()
     {
         //
     }
 
-    public function passes(string $attribute, mixed $value): bool
+    public function passes($attribute, mixed $value): bool
     {
-        //
+        return true;
     }
 
     public function message(): string

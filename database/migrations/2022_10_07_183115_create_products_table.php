@@ -33,6 +33,9 @@ return new class extends Migration
             $table->integer('sorting')->default(999);
             $table->text('text')->nullable();
 
+            $table->unsignedInteger('quantity')
+                ->default(0);
+
             $table->fullText(['title', 'text']);
 
             $table->timestamps();

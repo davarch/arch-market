@@ -24,7 +24,9 @@ class Handler extends ExceptionHandler
         $this->renderable(function (DomainException $exception) {
             flash()->danger($exception->getMessage());
 
-            return back();
+            return session()->previousUrl()
+                ? back()
+                : redirect()->route('home');
         });
     }
 }

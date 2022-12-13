@@ -30,6 +30,7 @@ class ProductFactory extends Factory
             'sorting' => $this->faker->numberBetween(1, 999),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
             'text' => $this->faker->text(),
+            'quantity' => $this->faker->numberBetween(0, 20),
         ];
     }
 }
